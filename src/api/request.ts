@@ -4,16 +4,12 @@ import type { ApiResponse } from './auth'
 
 // 根据环境变量选择 API 地址
 const getBaseURL = (): string => {
-  // 在生产环境中使用相对路径，让请求通过 Vercel 代理
-  if (import.meta.env.PROD) {
-    return '/api'
+  if (import.meta.env.DEV) {
+    // 开发环境直接使用 Nginx 地址
+    return 'https://travelsever1.maxtral.fun/api'
   }
-  
-  // 开发环境使用完整 URL
-  const mode = import.meta.env.VITE_API_MODE
-  return mode === '0' 
-    ? import.meta.env.VITE_LOCAL_API_URL 
-    : import.meta.env.VITE_REMOTE_API_URL
+  // 生产环境
+  return '/api'
 }
 
 const instance: AxiosInstance = axios.create({
@@ -21,7 +17,8 @@ const instance: AxiosInstance = axios.create({
   timeout: 5000,
   headers: {
     'Content-Type': 'application/json'
-  }
+  },
+  withCredentials: true
 })
 
 // 请求拦截器

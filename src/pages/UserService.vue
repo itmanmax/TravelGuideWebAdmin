@@ -16,7 +16,7 @@ const handleDashboard = () => {
     return
   }
   
-  window.open('http://localhost:8080/admin/dashboard', '_blank')
+  window.open('https://travelsever1.maxtral.fun/admin/dashboard', '_blank')
 }
 
 const handleComingSoon = () => {
