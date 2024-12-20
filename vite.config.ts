@@ -24,8 +24,9 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://travelsever1.maxtral.fun',
-        changeOrigin: true
+        target: 'https://travelsever1.maxtral.fun',
+        changeOrigin: true,
+        secure: false
       }
     }
   }
