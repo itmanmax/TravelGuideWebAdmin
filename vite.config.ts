@@ -25,7 +25,7 @@ export default defineConfig({
     proxy: {
       '/api': {
         target: process.env.VITE_API_MODE === '1' 
-          ? process.env.VITE_REMOTE_API_URL 
+          ? process.env.VITE_REMOTE_API_URL?.replace('https://', 'http://') 
           : process.env.VITE_LOCAL_API_URL,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')

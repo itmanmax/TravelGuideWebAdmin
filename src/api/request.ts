@@ -9,8 +9,8 @@ const getBaseURL = (): string => {
     ? import.meta.env.VITE_LOCAL_API_URL 
     : import.meta.env.VITE_REMOTE_API_URL
   
-  // 添加 /api 前缀
-  return `${baseUrl}/api`
+  // 添加 /api 前缀，确保使用 http 协议
+  return `${baseUrl}/api`.replace('https://', 'http://')
 }
 
 const instance: AxiosInstance = axios.create({
@@ -61,7 +61,7 @@ instance.interceptors.response.use(
     else if (error.response?.status === 403) {
       console.error('Forbidden:', error.response.data)
     }
-    // 对于 500 服务器错误
+    // 对�� 500 服务器错误
     else if (error.response?.status === 500) {
       console.error('Server error:', error.response.data)
     }
