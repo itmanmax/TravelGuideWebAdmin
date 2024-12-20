@@ -10,8 +10,16 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src')
     }
   },
-  optimizeDeps: {
-    include: ['vue-router', 'pinia']
+  build: {
+    outDir: 'dist',
+    sourcemap: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'element-plus': ['element-plus']
+        }
+      }
+    }
   },
   server: {
     proxy: {
@@ -21,16 +29,6 @@ export default defineConfig({
           : process.env.VITE_LOCAL_API_URL,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
-      }
-    }
-  },
-  build: {
-    sourcemap: true,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          'element-plus': ['element-plus']
-        }
       }
     }
   }
