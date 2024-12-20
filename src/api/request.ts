@@ -4,13 +4,16 @@ import type { ApiResponse } from './auth'
 
 // 根据环境变量选择 API 地址
 const getBaseURL = (): string => {
+  // 在生产环境中使用相对路径，让请求通过 Vercel 代理
+  if (import.meta.env.PROD) {
+    return '/api'
+  }
+  
+  // 开发环境使用完整 URL
   const mode = import.meta.env.VITE_API_MODE
-  const baseUrl = mode === '0' 
+  return mode === '0' 
     ? import.meta.env.VITE_LOCAL_API_URL 
     : import.meta.env.VITE_REMOTE_API_URL
-  
-  // 在生产环境中直接使用相对路径
-  return import.meta.env.PROD ? '' : baseUrl
 }
 
 const instance: AxiosInstance = axios.create({
